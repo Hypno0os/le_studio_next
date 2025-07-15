@@ -1,0 +1,150 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Session {
+  id           String   @id
+  userId       String
+  token        String
+  expiresAt    DateTime
+  lastActivity DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  // Relations
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  data      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  password    String
+  role        Role     @default(USER)
+  avatar      String?
+  memberSince DateTime @default(now())
+  lastLogin   DateTime @default(now())
+  status      UserStatus @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  articles       BlogArticle[]
+  notifications  Notification[]
+  sessions       Session[]
+
+  @@map("users")
+}
+
+model BlogArticle {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  excerpt       String
+  content       String
+  featuredImage String?
+  status        ArticleStatus @default(DRAFT)
+  publishedAt   DateTime?
+  authorId      String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  author        User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  images        BlogImage[]
+  categories    BlogArticleCategory[]
+
+  @@map("blog_articles")
+}
+
+model BlogImage {
+  id           String   @id @default(cuid())
+  articleId    String
+  originalName String
+  fileName     String
+  filePath     String
+  mimeType     String
+  fileSize     BigInt
+  width        Int
+  height       Int
+  altText      String?
+  caption      String?
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  // Relations
+  article      BlogArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("blog_images")
+}
+
+model BlogCategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  color       String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  articles    BlogArticleCategory[]
+
+  @@map("blog_categories")
+}
+
+model BlogArticleCategory {
+  articleId  String
+  categoryId String
+
+  // Relations
+  article    BlogArticle  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  category   BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, categoryId])
+  @@map("blog_article_categories")
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+enum ArticleStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  REJECTED
+}

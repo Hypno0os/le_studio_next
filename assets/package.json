@@ -1,0 +1,7 @@
+{
+  "name": "phenix_test_assets",
+  "private": true,
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+} 

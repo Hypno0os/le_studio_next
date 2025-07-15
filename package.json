@@ -1,0 +1,56 @@
+{
+  "name": "le-studio-sport-next",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export-db": "node scripts/export-database.js",
+    "db:export": "node scripts/export-database.js",
+    "backup-db": "node scripts/backup-database.js",
+    "db:backup": "node scripts/backup-database.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
+  "keywords": [
+    "fitness",
+    "sport",
+    "biarritz",
+    "nextjs"
+  ],
+  "author": "Le Studio Sport Biarritz",
+  "license": "ISC",
+  "description": "Site web du Studio Sport Biarritz - Salle de sport et coaching personnalisé",
+  "dependencies": {
+    "@prisma/client": "^6.11.1",
+    "@tinymce/tinymce-react": "^6.2.1",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.0.11",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "bcryptjs": "^3.0.2",
+    "dompurify": "^3.2.6",
+    "isomorphic-dompurify": "^2.26.0",
+    "jsdom": "^26.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "next": "^15.3.5",
+    "node-fetch": "^3.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "sharp": "^0.34.2",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.4.38",
+    "prisma": "^6.11.1",
+    "tailwindcss": "3.4.3"
+  }
+}

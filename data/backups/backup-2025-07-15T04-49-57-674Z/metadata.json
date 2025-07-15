@@ -1,0 +1,18 @@
+{
+  "backupName": "backup-2025-07-15T04-49-57-674Z",
+  "backupAt": "2025-07-15T04:49:57.695Z",
+  "version": "1.0.0",
+  "stats": {
+    "users": 3,
+    "articles": 15,
+    "categories": 4,
+    "notifications": 7,
+    "sessions": 0,
+    "images": 0
+  },
+  "files": [
+    "backup.json",
+    "backup.sql",
+    "metadata.json"
+  ]
+}
