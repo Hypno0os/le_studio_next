@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
         .toFile(thumbnailPath.replace(/\.[^/.]+$/, '.webp'))
     ])
 
-    // URLs publiques des fichiers
+    // URLs publiques des fichiers (toujours absolues)
     const baseUrl = '/uploads'
     const imageUrls = {
       original: `${baseUrl}/original/${fileName}`,
@@ -97,8 +97,11 @@ export async function POST(request: NextRequest) {
       thumbnail: `${baseUrl}/thumbnails/${fileName.replace(/\.[^/.]+$/, '.webp')}`
     }
 
+    // S'assurer que l'URL retournée est absolue
+    const returnUrl = imageUrls.medium.startsWith('/') ? imageUrls.medium : `/${imageUrls.medium}`
+
     return NextResponse.json({
-      location: imageUrls.medium, // URL par défaut pour TinyMCE
+      location: returnUrl, // URL par défaut pour TinyMCE (toujours absolue)
       urls: imageUrls,
       metadata: {
         width: metadata.width,

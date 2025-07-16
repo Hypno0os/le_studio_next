@@ -326,6 +326,13 @@ export default function AdminBlog() {
                             Voir
                           </Link>
                           
+                          <Link
+                            href={`/admin/blog/${article.id}`}
+                            className="text-blue-600 hover:text-blue-900 font-medium"
+                          >
+                            Modifier
+                          </Link>
+                          
                           {article.status === 'PENDING' && (
                             <>
                               <button
@@ -409,6 +416,13 @@ export default function AdminBlog() {
                       className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-gray-900 text-center py-2 px-3 rounded text-sm font-medium transition-colors"
                     >
                       Voir
+                    </Link>
+                    
+                    <Link
+                      href={`/admin/blog/${article.id}`}
+                      className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-3 rounded text-sm font-medium transition-colors"
+                    >
+                      Modifier
                     </Link>
                     
                     {article.status === 'PENDING' && (
